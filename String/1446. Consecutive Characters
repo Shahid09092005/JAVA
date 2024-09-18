@@ -1,0 +1,16 @@
+class Solution {
+    public int maxPower(String s) {
+        int max=Integer.MIN_VALUE;
+        int count=1;//for unique character
+        for(int i=1;i<s.length();i++){
+            if(s.charAt(i)==s.charAt(i-1)){
+                count+=1;;
+            }else{
+                max=Math.max(max,count);
+                count=1;//reset
+            }
+        }
+        max=Math.max(max,count); // if case is abbdeeeee; the count 5 for e not check because loop iterate complete and count store 5 so here we find max between max and count
+        return max;
+    }
+}
