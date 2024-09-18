@@ -7,7 +7,7 @@ class Solution {
         for(int i=0;i<n;i++){
             char currChar=instructions.charAt(i);
             if(currChar=='G'){ // move 1 unit
-                x += (dir=='E')? 1 : 0; 
+                x += (dir=='E')? 1 : 0;  
                 x += (dir=='W')? -1 : 0;
                 y += (dir=='N')? 0 : 1; 
                 y += (dir=='S')? 0 : -1;  
