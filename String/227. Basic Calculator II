@@ -1,0 +1,79 @@
+//without stack
+class Solution {
+    public int calculate(String s) {
+        int result = 0, num = 0, lastNum = 0;
+        char sign = '+';  // default sign
+
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+
+            if (Character.isDigit(currChar)) {
+                num = num * 10 + (currChar - '0');  // Handle multi-digit numbers
+            }
+
+            // When we encounter an operator or reach the end of the string
+            if ((!Character.isDigit(currChar) && currChar != ' ') || i == s.length() - 1) {
+                if (sign == '+') {
+                    result += lastNum;  // Add the previous number to the result
+                    lastNum = num;      // Set lastNum to the current number
+                } else if (sign == '-') {
+                    result += lastNum;
+                    lastNum = -num;
+                } else if (sign == '*') {
+                    lastNum = lastNum * num;  // Multiply with the lastNum
+                } else if (sign == '/') {
+                    lastNum = lastNum / num;  // Divide the lastNum
+                }
+
+                sign = currChar;  // Update the sign
+                num = 0;  // Reset the current number
+            }
+        }
+
+        result += lastNum;  // Add the last pending number to the result
+        return result;
+    }
+}
+
+
+// with stack
+class Solution {
+    public int calculate(String s) {
+        Stack<Integer> st = new Stack<>();
+        int num = 0;
+        char sign = '+';  // default sign
+        
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+            
+            // Check if current character is a digit
+            if (Character.isDigit(currChar)) {
+                num = num * 10 + (currChar - '0');  // Handle multi-digit numbers
+            }
+
+            // Process when current character is an operator or end of the string
+            if ((!Character.isDigit(currChar) && currChar != ' ') || i == s.length() - 1) {
+                if (sign == '+') {
+                    st.push(num);
+                } else if (sign == '-') {
+                    st.push(-num);
+                } else if (sign == '*') {
+                    st.push(st.pop() * num);
+                } else if (sign == '/') {
+                    st.push(st.pop() / num);
+                }
+                sign = currChar;  // Update the sign
+                num = 0;  // Reset the number for the next round
+            }
+        }
+        
+        // Sum up all numbers in the stack
+        int res = 0;
+        while (!st.isEmpty()) {
+            res += st.pop();
+        }
+        
+        return res;
+    }
+}
+
