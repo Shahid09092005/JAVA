@@ -1,0 +1,32 @@
+class Solution {
+    public boolean isRobotBounded(String instructions) {
+        char dir='N';// default direction
+        int x=0;
+        int y=0;
+        int n=instructions.length();
+        for(int i=0;i<n;i++){
+            char currChar=instructions.charAt(i);
+            if(currChar=='G'){ // move 1 unit
+                x += (dir=='E')? 1 : 0; 
+                x += (dir=='W')? -1 : 0;
+                y += (dir=='N')? 0 : 1; 
+                y += (dir=='S')? 0 : -1;  
+            }else{ //direction change 
+                char incomingDir=currChar;
+                if(dir=='N'){ //at facing N so either we move to E or W
+                dir = (incomingDir=='L')?'W':'E';
+                }else if(dir=='E'){
+                dir = (incomingDir=='L')?'N':'S';
+                }else if(dir=='W'){
+                dir = (incomingDir=='L')?'S':'N';
+                }else if(dir=='S'){ // this condi. aslo put in else statement
+                dir = (incomingDir=='L')?'E':'W';
+                }
+            }
+        }
+        if(x==0 && y==0 ||dir!='N' ){//if dir is N then it goes away from origin
+            return true;
+        }
+        return false;
+    }
+}
