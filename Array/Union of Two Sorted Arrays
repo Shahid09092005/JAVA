@@ -1,0 +1,46 @@
+class Solution
+{
+    //Function to return a list containing the union of the two arrays.
+    public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        // add your code here
+        ArrayList<Integer> temp=new ArrayList<>();
+        int i=0;// for arr1
+        int j=0; // for arr2
+        while(i<n && j<m){
+            if(arr1[i]==arr2[j]){
+               if(temp.isEmpty() || temp.get(temp.size()-1)!=arr1[i]){
+                   temp.add(arr1[i]);
+               }
+                i++;
+                j++;
+            }
+            else if(arr1[i]<arr2[j]){
+                 if(temp.isEmpty() || temp.get(temp.size()-1)!=arr1[i]){
+                     temp.add(arr1[i]);
+                 }
+                i++;
+            }
+            else if(arr1[i]>arr2[j]){
+                  if(temp.isEmpty() || temp.get(temp.size()-1)!=arr2[j]){
+                      temp.add(arr2[j]);
+                  }
+                j++;
+            }
+        }
+        // when any of one's elements left in the array
+        while(i<n){ // means arr 1 not exaust
+             if(temp.isEmpty() || temp.get(temp.size()-1)!=arr1[i]){
+            temp.add(arr1[i]);
+            }
+            i++;
+        }
+        while(j<m){ // means arr 1 not exaust
+              if(temp.isEmpty() || temp.get(temp.size()-1)!=arr2[j]){
+            temp.add(arr2[j]);
+             }
+            j++;
+        }
+        return temp;
+    }
+}
