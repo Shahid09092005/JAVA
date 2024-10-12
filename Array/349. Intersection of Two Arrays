@@ -1,0 +1,61 @@
+// Arrpoach 1 : T.C-O(nlogn+mlogm) due to sorting step
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        int n=nums1.length;
+        Arrays.sort(nums2);
+        int m=nums2.length;
+        int i=0;
+        int j=0;
+        ArrayList<Integer> temp= new ArrayList<>();
+        while(i<n && j<m){
+            if(nums1[i]==nums2[j]){
+                if(temp.isEmpty() || temp.get(temp.size()-1)!= nums1[i]){
+                    temp.add(nums1[i]);
+                }
+                i++;
+                j++;
+            }
+            else if (nums1[i]<nums2[j]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        
+        int[] res=new int[temp.size()];
+        for(int k=0;k<temp.size();k++){
+            res[k]=temp.get(k);
+        }
+        return res;
+    }
+}
+
+
+// Approach 2: Hashset :- O(n+m)
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int n=nums1.length;
+        int m=nums2.length;
+        int i=0;
+        int j=0;
+        HashSet<Integer> set= new HashSet<>();
+        for(int num:nums1){
+            set.add(num); // it will store unique element of nums1
+        }
+        // creating ArrayList because we don't know the common elemnet size
+        ArrayList<Integer> list=new ArrayList<>(); // we can also use anothe hashset for storing the element because it take less time for accessing element 
+        for(int num : nums2){
+        //check the num2'ele. present in set or not, if present it means the then it        duplicate so add in ArrayList before checking it not present in the list. 
+            if(set.contains(num) && !list.contains(num)){
+                list.add(num);
+            }
+        }
+        // convert ArrayList to Array
+        int[] res=new int[list.size()];
+        for(int k=0;k<list.size();k++){
+            res[k]=list.get(k);
+        }
+        return res;
+    }
+}
