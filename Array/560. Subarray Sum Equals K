@@ -1,0 +1,18 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        map.put(0,1); // default for 0 value 
+        int cumm_sum=0;
+        int res=0;
+        for(int n:nums){
+            cumm_sum +=n;
+            int t=cumm_sum-k;
+            if(map.containsKey(t)){
+                res +=map.get(t);
+            }
+            map.put(cumm_sum,map.getOrDefault(cumm_sum , 0)+1);    
+        }
+        return res;
+        
+    }
+}
