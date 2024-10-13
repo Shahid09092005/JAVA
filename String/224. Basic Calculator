@@ -1,0 +1,47 @@
+class Solution {
+    public int calculate(String s) {
+        Stack<Long> st=new Stack<>(); // to handle '(' and ')'
+        long sign= 1;
+        long num=0;
+        long res=0;
+        for(int i=0;i<s.length();i++){
+            char curr=s.charAt(i);
+            if(Character.isDigit(curr)){
+                num = num * 10 + (curr - '0');
+            }else{
+                if(curr=='+'){
+                    res=res+num*sign;
+                    num=0;
+                    sign=1;
+                }else if (curr=='-'){
+                    res=res+num*sign;
+                    num=0;
+                    sign=-1;
+                }else if (curr=='('){
+                    st.push(res);
+                    st.push(sign);
+                    num=0;
+                    sign=1;
+                    res=0;
+                }else if (curr==')'){
+                    res =res+num*sign;
+                    num=0;
+                    long st_sign=st.pop(); // remove the stack sign 
+                    // Note: sign either 1 for +ve and -1 for -ve
+                    long st_num=st.pop();// remove the stack number
+                    res = res*st_sign + st_num;
+                } 
+                // Ignore the space
+            }
+
+        }
+        res =res+num*sign;
+        if (res > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        } else if (res < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        } else {
+            return (int) res;
+        }   
+    }
+}
