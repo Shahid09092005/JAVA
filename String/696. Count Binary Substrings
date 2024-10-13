@@ -1,0 +1,18 @@
+class Solution {
+    public int countBinarySubstrings(String s) {
+       int curr=1;// letting there is one match occur because we started from 1 to n-1
+       int prev=0;// store the previour contineous same number
+       int count=0; // np. of contineous Substrings
+       for(int i=1;i<s.length();i++){
+        if(s.charAt(i)==s.charAt(i-1)){
+            curr++; // same character occur
+        }else{
+            count +=Math.min(prev,curr);
+            prev=curr;
+            curr=1;
+        }
+       }
+       count +=Math.min(prev,curr);
+       return count;
+    }
+}
